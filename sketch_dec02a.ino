@@ -9,7 +9,7 @@
 
 
 
-/***** declare global wifi variables to hold the credentials for the network (TkNet) */
+/***** declare global wifi variables to hold the credentials for the network  */
 
 const char* ssid = "TkNet";
 const char* password = "2Y%dv6qMl+QPBE";
@@ -45,7 +45,7 @@ DallasTemperature ds18b20(&oneWire);
 
 char temperatureString[7]; //this is to publish them via mqtt as a string
 
-SHTSensor sht85;
+SHTSensor sht85(SHTSensor::SHT3X);
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -154,7 +154,7 @@ void loop()
 
   then = now;
 
-  //bool statusds = ????
+  //bool statusds 
   ds18b20.requestTemperatures();
   float temp = ds18b20.getTempCByIndex(0);
 
