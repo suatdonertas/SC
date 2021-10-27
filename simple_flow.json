@@ -1,0 +1,33 @@
+[
+    {
+        "id": "b94672ebcf18d96c",
+        "type": "influxdb out",
+        "z": "476fefd36d8f59e3",
+        "influxdb": "e3ceff8f8bfa9d38",
+        "name": "",
+        "measurement": "sensors",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "SuatTEST",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 750,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "e3ceff8f8bfa9d38",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "test",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.8-flux",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    }
+]
