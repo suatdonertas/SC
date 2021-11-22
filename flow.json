@@ -1,0 +1,135 @@
+[
+    {
+        "id": "476fefd36d8f59e3",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "866f05f7c15da5a5",
+        "type": "mqtt in",
+        "z": "476fefd36d8f59e3",
+        "name": "",
+        "topic": "sensors/#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "75449d56.ed30d4",
+        "nl": false,
+        "rap": false,
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "fc9cf9c45ea6a24c",
+                "7ad17493696fb244"
+            ]
+        ]
+    },
+    {
+        "id": "fc9cf9c45ea6a24c",
+        "type": "debug",
+        "z": "476fefd36d8f59e3",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 390,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b94672ebcf18d96c",
+        "type": "influxdb out",
+        "z": "476fefd36d8f59e3",
+        "influxdb": "e3ceff8f8bfa9d38",
+        "name": "",
+        "measurement": "sensors",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "SuatTEST",
+        "retentionPolicyV18Flux": "",
+        "org": "",
+        "bucket": "",
+        "x": 750,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d722b85da995f327",
+        "type": "debug",
+        "z": "476fefd36d8f59e3",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "7ad17493696fb244",
+        "type": "function",
+        "z": "476fefd36d8f59e3",
+        "name": "mqtt to influxdb",
+        "func": "\n\nvar tokens = msg.topic.split(\"/\");\nvar payload = [];\nvar now = Date.now();\n\npayload.push([{\n    value: Number(msg.payload),\n    time: now * 1000000\n  }, {\n    location: tokens[1],\n    measurement: tokens[2]\n  }]);\n\nmsg.payload = payload;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "b94672ebcf18d96c",
+                "d722b85da995f327"
+            ]
+        ]
+    },
+    {
+        "id": "75449d56.ed30d4",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "e3ceff8f8bfa9d38",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "test",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.8-flux",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    }
+]
